@@ -6,23 +6,13 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 
-Mesh::Mesh(vector<Vertex>& vertices, vector<unsigned int>& indices, vector<Texture>& textures)
-	: m_vertices(vertices), m_indices(indices), m_textures(textures) {
+Mesh::Mesh(vector<Vertex>& vertices, vector<unsigned int>& indices)
+	: m_vertices(vertices), m_indices(indices) {
 
 	setupMesh();
 }
 
-void Mesh::Draw(const Shader& shader) const {
-	
-	// Activate and bind all textures before drawing
-	for (unsigned int i = 0; i < m_textures.size(); i++) {
-		glActiveTexture(GL_TEXTURE0 + i);
-		shader.setInt(m_textures[i].getName(), i);
-		m_textures[i].Bind(GL_TEXTURE_2D);
-	}
-	glActiveTexture(GL_TEXTURE0);
-	
-	// Draw mesh
+void Mesh::Draw() const {
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0); // DRAW
 	glBindVertexArray(0); // unbind

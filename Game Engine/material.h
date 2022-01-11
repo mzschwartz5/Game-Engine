@@ -10,6 +10,7 @@ class Material {
 public:
 	Material(Shader& shader, const vector<Texture>& textures);
 	Shader& getShader();
+	void activateTextures();
 private:
 	Shader& m_shader;
 	const vector<Texture>& m_textures;

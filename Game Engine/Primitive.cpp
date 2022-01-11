@@ -64,7 +64,7 @@ Model& CubeModel() {
 	vector<Texture>* textures = new vector<Texture>{ *texture1, *texture2 };
 
 	// Create mesh
-	Mesh* mesh = new Mesh(cubeVertices, cubeIndices, *textures); // TODO - remove mesh's dependency on textures
+	Mesh* mesh = new Mesh(cubeVertices, cubeIndices);
 
 	// Create shader
 	Shader* shader = new Shader("vertShader.vs", "fragShader.fs");

@@ -10,13 +10,12 @@ using std::vector;
 
 class Mesh {
 public:
-	Mesh(vector<Vertex>& vertices, vector<unsigned int>& indices, vector<Texture>& textures);
-	void Draw(const Shader& shader) const;
+	Mesh(vector<Vertex>& vertices, vector<unsigned int>& indices);
+	void Draw() const;
 private:
 	// Mesh data
 	vector<Vertex> m_vertices;
 	vector<unsigned int> m_indices;
-	vector<Texture>& m_textures;
 
 	// Render data (OpenGL objects)
 	unsigned int VAO, VBO, EBO;

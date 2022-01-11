@@ -17,9 +17,10 @@ Model::Model(const Mesh& mesh, Material& material): m_mesh(mesh), m_material(mat
 }
 
 void Model::Draw(const mat4& transform) const{
+	
 	m_material.getShader().setMatrix(TRANSFORM_UNIFORM, transform); // update model-to-world matrix on shader
-
-	m_mesh.Draw(m_material.getShader());
+	m_material.activateTextures(); // done before drawing
+	m_mesh.Draw();
 
 	for (const auto& child : m_childModels) {
 		child.get().Draw(transform);
