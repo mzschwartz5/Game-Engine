@@ -30,8 +30,8 @@ void Scene::Draw() {
 	//m_shaders[0].get().setMatrix(VIEW_MATRIX, viewMatrix);
 	//m_shaders[0].get().setMatrix(PROJECTION_MATRIX, projectionMatrix);
 	for (auto& shader : m_shaders) {
-		shader.get().setMatrix(VIEW_MATRIX, viewMatrix);
-		shader.get().setMatrix(PROJECTION_MATRIX, projectionMatrix);
+		shader.get().setValue(VIEW_MATRIX, viewMatrix);
+		shader.get().setValue(PROJECTION_MATRIX, projectionMatrix);
 	}
 
 	// Draw all drawables

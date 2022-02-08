@@ -20,11 +20,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="material.cpp" />
     <ClCompile Include="mesh.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="CollisionDetection.cpp" />
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp">
@@ -38,12 +40,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="IDrawable.h" />
     <ClInclude Include="material.h" />
     <ClInclude Include="mesh.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="CollisionDetection.h" />
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="texture.h" />

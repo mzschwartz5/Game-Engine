@@ -11,9 +11,11 @@
 #include "Timer.h"
 #include "constants.h"
 #include "Primitive.h"
+#include "CollisionDetection.h"
 using std::vector;
 using glm::vec3;
 using glm::vec2;
+using Primitive::Cube;
 
 // Forward declarations
 GLFWwindow* initializeGLFW();
@@ -22,50 +24,61 @@ void processMouseInput(GLFWwindow* window, Camera* camera);
 
 int main()
 {
-	// GLFW initialization and global settings
-	GLFWwindow* window = initializeGLFW();
-	if (!window) return -1;
-	stbi_set_flip_vertically_on_load(true); // global setting for STB image loader
+	try { // Top level error handling
 
-	// Create camera with position and front vectors, control it via mouse input.
-	Camera camera(vec3(0.0f, 0.0f, 3.0f), vec3(0.0f, 0.0f, -1.0f)); 
-	processMouseInput(window, &camera);
+		// GLFW initialization and global settings
+		GLFWwindow* window = initializeGLFW();
+		stbi_set_flip_vertically_on_load(true); // global setting for STB image loader
 
-	// Initialize scene
-	Scene scene{camera};
+		// Create camera with position and front vectors, control it via mouse input.
+		Camera camera(vec3(0.0f, 0.0f, 3.0f), vec3(0.0f, 0.0f, -1.0f));
+		processMouseInput(window, &camera);
 
-	// Initialize Time
-	Timer timer;
+		// Initialize scene
+		Scene scene{ camera };
 
-	// Instantiate cube primitives for testing
-	Primitive::Cube cube1(vec3(0.0f, 0.0f, 0.0f));
-	Primitive::Cube cube2(vec3(2.0f, 5.0f, -15.0f));
-	Primitive::Cube cube3(vec3(-1.5f, -2.2, -2.5f));
-	Primitive::Cube cube4(vec3(-3.8, -2.0f, -12.3f));
-	Primitive::Cube cube5(vec3(2.4f, -0.4f, -3.5f));
-	Primitive::Cube cube6(vec3(-1.7f, 3.0f, -7.5f));
-	Primitive::Cube cube7(vec3(1.3f, -2.0f, -2.5f));
-	Primitive::Cube cube8(vec3(1.5f, 2.0f, -2.5f));
-	Primitive::Cube cube9(vec3(1.5f, 0.2f, -1.5f));
-	Primitive::Cube cube10(vec3(-1.3f, 1.0f, -1.5f));
+		// Initialize Time
+		Timer timer;
 
-	// Main render loop
-	// Draw images until told to explicitly stop (e.g. x out of window)
-	while (!glfwWindowShouldClose(window))
-	{
-		timer.calcDeltaTime();
-		processKeyboardInput(window, camera);
+		// Instantiate cube primitives for testing
+		/*Cube cube1(vec3(0.0f, 0.0f, 0.0f));
+		Cube cube2(vec3(2.0f, 5.0f, -15.0f));
+		Cube cube3(vec3(-1.5f, -2.2, -2.5f));
+		Cube cube4(vec3(-3.8, -2.0f, -12.3f));
+		Cube cube5(vec3(2.4f, -0.4f, -3.5f));
+		Cube cube6(vec3(-1.7f, 3.0f, -7.5f));
+		Cube cube7(vec3(1.3f, -2.0f, -2.5f));
+		Cube cube8(vec3(1.5f, 2.0f, -2.5f));
+		Cube cube9(vec3(1.5f, 0.2f, -1.5f));
+		Cube cube10(vec3(-1.3f, 1.0f, -1.5f));*/
 
-		// Draw!
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		scene.Draw();
+		Cube cube1(vec3(0.0, 0.0, 0.0));
+		Cube cube2(vec3(.95, .93, 0.0));
+		bool collided = Physics::GJK(*cube1.collider(), *cube2.collider());
+		std::cout << collided << std::endl;
 
-		glfwSwapBuffers(window);
-		glfwPollEvents(); // updates window state upon events like keyboard or mouse inputs;
+		// Main render loop
+		// Draw images until told to explicitly stop (e.g. x out of window)
+		while (!glfwWindowShouldClose(window))
+		{
+			timer.calcDeltaTime();
+			processKeyboardInput(window, camera);
+
+			// Draw!
+			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			scene.Draw();
+
+			glfwSwapBuffers(window);
+			glfwPollEvents(); // updates window state upon events like keyboard or mouse inputs;
+		}
+
+		glfwTerminate(); // clean up GLFW resources
+	}
+	catch (const char* str) {
+		std::cerr << str << std::endl;
 	}
 
-	glfwTerminate(); // clean up GLFW resources
 	return 0;
 }
 
@@ -78,18 +91,17 @@ GLFWwindow* initializeGLFW() {
 	GLFWwindow* window = glfwCreateWindow(Constants::SCR_WIDTH, Constants::SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
 	if (window == NULL)
 	{
-		std::cout << "Failed to create GLFW window" << std::endl;
+		std::cerr << "Failed to create GLFW window" << std::endl;
 		glfwTerminate();
-		return nullptr;
+		std::exit(1);
 	}
 	glfwMakeContextCurrent(window);
 
 	// GLFW dependent on GLAD - make sure glad is loaded
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		std::cout << "Failed to initialize GLAD" << std::endl;
-		window = nullptr;
-		return window;
+		std::cerr << "Failed to initialize GLAD" << std::endl;
+		std::exit(1);
 	}
 
 	glViewport(0, 0, Constants::SCR_WIDTH, Constants::SCR_HEIGHT);

@@ -13,9 +13,9 @@ Shader& Material::getShader() {
 
 void Material::activateTextures()
 {	// Activate and bind all textures before drawing
-	for (unsigned int i = 0; i < m_textures.size(); i++) {
+	for (int i = 0; i < m_textures.size(); i++) {
 		glActiveTexture(GL_TEXTURE0 + i);
-		m_shader.setInt(m_textures[i].getName(), i);
+		m_shader.setValue(m_textures[i].getName(), i);
 		m_textures[i].Bind(GL_TEXTURE_2D);
 	}
 	glActiveTexture(GL_TEXTURE0);

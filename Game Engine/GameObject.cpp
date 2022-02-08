@@ -3,6 +3,8 @@
 #include <iostream>
 #include <glm/glm.hpp>
 using glm::vec3;
+using glm::dvec3;
+using glm::dvec4;
 using glm::vec4;
 #include <glm/gtc/matrix_transform.hpp>
 using glm::mat4;
@@ -16,7 +18,7 @@ GameObject::GameObject(const Model& model, const vec3& position) : GameObject(mo
 }
 
 void GameObject::Draw() {
-	DrawModel(); // has default param values in .h file.
+	DrawModel(); // has default param values in header file.
 }
 
 void GameObject::DrawModel(const mat4& parentTransform, bool hasParentMoved) {
@@ -37,8 +39,7 @@ void GameObject::DrawModel(const mat4& parentTransform, bool hasParentMoved) {
 	hasMoved = false;
 }
 
-// TODO - this is returning a local variable by reference
-const vec3& GameObject::position() const {
+vec3 GameObject::position() const {
 	return vec3(transform[3].x, transform[3].y, transform[3].z); // read position off of transform matrix
 }
 
@@ -50,4 +51,23 @@ void GameObject::translate(const vec3& translation) {
 
 void GameObject::setPosition(const vec3& position) {
 	transform[3] = vec4{ position, transform[3].w }; // should w component remain the same?
+	hasMoved = true;
+}
+
+mat3 GameObject::rotation() const {
+	return mat3(transform); // gets the rotation piece of the transform
+}
+
+Collider* GameObject::collider() {
+	return m_collider;
+}
+
+void GameObject::setCollider(Collider* const collider) {
+	m_collider = collider;
+}
+
+dvec3 GameObject::pointToWorldSpace(const dvec3& point)
+{
+	dvec4 transformedPoint = transform * dvec4(point, 1.0);
+	return dvec3(transformedPoint);
 }

@@ -7,6 +7,7 @@ using namespace Primitive; // usually bad practice but this is an exception, sin
 #include "vertex.h"
 #include <glm/glm.hpp>
 using glm::vec3;
+using glm::dvec3;
 
 vector<Vertex> cubeVertices = {
 	// Top
@@ -56,6 +57,17 @@ vector<unsigned int> cubeIndices = {
 };
 
 
+const vector<dvec3> cubeColliderVertices = {
+	dvec3(0.5, 0.5, 0.5),
+	dvec3(0.5, 0.5, -0.5),
+	dvec3(0.5, -0.5, 0.5),
+	dvec3(0.5, -0.5, -0.5),
+	dvec3(-0.5, 0.5, 0.5),
+	dvec3(-0.5, 0.5, -0.5),
+	dvec3(-0.5, -0.5, 0.5),
+	dvec3(-0.5, -0.5, -0.5),
+};
+
 Model& CubeModel() {
 
 	// Create textures
@@ -79,11 +91,16 @@ Model& CubeModel() {
 	return *model;
 }
 
+CubeCollider::CubeCollider(GameObject* const gameObject) : Collider(gameObject, cubeColliderVertices) {
+}
+
 // Constructors
 // Default 
 Cube::Cube() : GameObject(CubeModel()) {
+	setCollider(new CubeCollider(this));
 }
 
 // With position
 Cube::Cube(const vec3& position) : GameObject(CubeModel(), position) {
+	setCollider(new CubeCollider(this));
 }
