@@ -3,8 +3,14 @@ A home-grown bundle of graphics, physics, and gameplay engines, using with OpenG
 
 Currently a work-in-progress.
 
-Last milestone:
+Next milestone:
+- Collision response and rigidbody dynamics
+
+Previous milestones:
+- Static collision detection of convex polytopes via GJK method
 - Basic rendering engine: https://mattzschwartz.web.app/blog/Game%20Engine%20Part%20I:%20Rendering%20a%20Cube
 
-Next milestone:
-- Static collision detection via GJK method
+Future milestones:
+- Model loading
+- Advanced rendering and lighting
+- Level creation / loading 
