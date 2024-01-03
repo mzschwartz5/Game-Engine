@@ -18,15 +18,11 @@ add_executable(GameEngineExecutable ${SOURCES})
 target_include_directories(GameEngineExecutable PRIVATE ${CMAKE_SOURCE_DIR}/external/glm
                                                         ${CMAKE_SOURCE_DIR}/includes)
 
-# Find frameworks needed by GLFW
-find_library(OPENGL_LIBRARY OpenGL)
-find_library(COCOA_LIBRARY Cocoa)
-find_library(IOKIT_LIBRARY IOKit)
-find_library(COREVIDEO_LIBRARY CoreVideo)
+# Add subdirectory for GLFW
+add_subdirectory(${CMAKE_SOURCE_DIR}/external/glfw)
 
 # Link libraries
-target_link_directories(GameEngineExecutable PUBLIC ${CMAKE_SOURCE_DIR}/external/glfw-lib-arm64)
-target_link_libraries(GameEngineExecutable glfw3 
+target_link_libraries(GameEngineExecutable glfw 
                                            ${OPENGL_LIBRARY} 
                                            ${COCOA_LIBRARY} 
                                            ${IOKIT_LIBRARY} 
