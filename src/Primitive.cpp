@@ -1,6 +1,6 @@
 #include "Primitive.h"
 using namespace Primitive; // usually bad practice but this is an exception, since this is the cpp file corresponding to the primitive header
-#include "model.h"
+#include "Model.h"
 #include "material.h"
 #include "Shader.h"
 #include "mesh.h"
@@ -71,15 +71,15 @@ const vector<dvec3> cubeColliderVertices = {
 Model& CubeModel() {
 
 	// Create textures
-	Texture* texture1 = new Texture("wall_tex.jpg", "texture1", false);
-	Texture* texture2 = new Texture("awesomeface.png", "texture2", true);
+	Texture* texture1 = new Texture("../src/wall_tex.jpg", "texture1", false);
+	Texture* texture2 = new Texture("../src/awesomeface.png", "texture2", true);
 	vector<Texture>* textures = new vector<Texture>{ *texture1, *texture2 };
 
 	// Create mesh
 	Mesh* mesh = new Mesh(cubeVertices, cubeIndices);
 
 	// Create shader
-	Shader* shader = new Shader("vertShader.vs", "fragShader.fs");
+	Shader* shader = new Shader("../src/vertShader.vs", "../src/fragShader.fs");
 	shader->use();
 
 	// Create material

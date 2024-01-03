@@ -1,5 +1,5 @@
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include <GLFW/glfw3.h>	
 #include <iostream>
 #include "stb_image.h"
 #include <glm/glm.hpp>
@@ -41,7 +41,7 @@ int main()
 		Timer timer;
 
 		// Instantiate cube primitives for testing
-		/*Cube cube1(vec3(0.0f, 0.0f, 0.0f));
+		Cube cube1(vec3(0.0f, 0.0f, 0.0f));
 		Cube cube2(vec3(2.0f, 5.0f, -15.0f));
 		Cube cube3(vec3(-1.5f, -2.2, -2.5f));
 		Cube cube4(vec3(-3.8, -2.0f, -12.3f));
@@ -50,10 +50,10 @@ int main()
 		Cube cube7(vec3(1.3f, -2.0f, -2.5f));
 		Cube cube8(vec3(1.5f, 2.0f, -2.5f));
 		Cube cube9(vec3(1.5f, 0.2f, -1.5f));
-		Cube cube10(vec3(-1.3f, 1.0f, -1.5f));*/
+		Cube cube10(vec3(-1.3f, 1.0f, -1.5f));
 
-		Cube cube1(vec3(0.0, 0.0, 0.0));
-		Cube cube2(vec3(.95, .93, 0.0));
+		// Cube cube1(vec3(0.0, 0.0, 0.0));
+		// Cube cube2(vec3(.95, .93, 0.0));
 		bool collided = Physics::GJK(*cube1.collider(), *cube2.collider());
 		std::cout << collided << std::endl;
 
@@ -84,6 +84,8 @@ int main()
 
 GLFWwindow* initializeGLFW() {
 	glfwInit();
+	// Conditional for mac os?
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -100,7 +102,7 @@ GLFWwindow* initializeGLFW() {
 	// GLFW dependent on GLAD - make sure glad is loaded
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		std::cerr << "Failed to initialize GLAD" << std::endl;
+		std::cerr << "Failed to falize GLAD" << std::endl;
 		std::exit(1);
 	}
 
