@@ -1,5 +1,5 @@
-#include "Primitive.h"
-using namespace Primitive; // usually bad practice but this is an exception, since this is the cpp file corresponding to the primitive header
+#include "Cube.h"
+using namespace Primitive;
 #include "Model.h"
 #include "material.h"
 #include "Shader.h"

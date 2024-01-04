@@ -2,7 +2,7 @@
 #define TEXTURE_H
 
 #include <string>
-#include <glad/glad.h> 
+#include <glad/gl.h> 
 using std::string;
 
 class Texture {

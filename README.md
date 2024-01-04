@@ -14,3 +14,7 @@ Future milestones:
 - Model loading
 - Advanced rendering and lighting
 - Level creation / loading 
+
+
+Developer dependencies / requirements:
+- jinja2 for Glad generator (`pip3 install jinja2`)

@@ -4,7 +4,8 @@
             "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/includes/**",
-                "${workspaceFolder}/external/**"
+                "${workspaceFolder}/external/**",
+                "${workspaceFolder}/build/**"
             ],
             "defines": [],
             "macFrameworkPath": [

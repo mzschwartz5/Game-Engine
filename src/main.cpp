@@ -1,4 +1,4 @@
-#include <glad/glad.h>
+#include <glad/gl.h>
 #include <GLFW/glfw3.h>	
 #include <iostream>
 #include "stb_image.h"
@@ -10,7 +10,7 @@
 #include "Scene.h"
 #include "Timer.h"
 #include "constants.h"
-#include "Primitive.h"
+#include "Cube.h"
 #include "CollisionDetection.h"
 using std::vector;
 using glm::vec3;
@@ -100,9 +100,9 @@ GLFWwindow* initializeGLFW() {
 	glfwMakeContextCurrent(window);
 
 	// GLFW dependent on GLAD - make sure glad is loaded
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+	if (!gladLoadGL(glfwGetProcAddress))
 	{
-		std::cerr << "Failed to falize GLAD" << std::endl;
+		std::cerr << "Failed to initialize GLAD" << std::endl;
 		std::exit(1);
 	}
 

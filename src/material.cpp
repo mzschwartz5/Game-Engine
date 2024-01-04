@@ -1,7 +1,7 @@
 #include "material.h"
 #include "Shader.h"
 #include "texture.h"
-#include <glad/glad.h> 
+#include <glad/gl.h> 
 #include <GLFW/glfw3.h>
 
 Material::Material(Shader& shader, const vector<Texture>& textures) : m_shader(shader), m_textures(textures) {

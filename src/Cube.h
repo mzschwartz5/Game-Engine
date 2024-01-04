@@ -1,5 +1,5 @@
-#ifndef PRIMITIVE_H
-#define PRIMITIVE_H
+#ifndef CUBE_H
+#define CUBE_H
 #include "GameObject.h"
 #include <glm/glm.hpp>
 using glm::vec3;
