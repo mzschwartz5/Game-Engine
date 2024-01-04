@@ -15,6 +15,7 @@ file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.c")
 add_executable(GameEngineExecutable ${SOURCES})
 # Include directories for header files
 target_include_directories(GameEngineExecutable PRIVATE ${CMAKE_SOURCE_DIR}/external/glm
+                                                        ${CMAKE_SOURCE_DIR}/external/stb_image
                                                         ${CMAKE_SOURCE_DIR}/includes
                                                         # Glad builds its include folder to the build directory
                                                         ${CMAKE_BINARY_DIR}/gladsources/glad/include/glad)
@@ -26,6 +27,12 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/external/glad/cmake)
 # Function defined in glad cmake file
 glad_add_library(glad STATIC API gl:core=4.6)
 
+# Add stb_image as a library
+file(GLOB STB_IMAGE_SOURCES "external/stb_image/*.cpp")
+add_library(stb_image STATIC ${STB_IMAGE_SOURCES})
+target_include_directories(stb_image PUBLIC ${CMAKE_SOURCE_DIR}/external/stb_image)
+
 # Link libraries
 target_link_libraries(GameEngineExecutable glfw 
-                                           glad ${CMAKE_DL_LIBS})
+                                           glad ${CMAKE_DL_LIBS}
+                                           stb_image)

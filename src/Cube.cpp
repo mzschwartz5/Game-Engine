@@ -71,6 +71,7 @@ const vector<dvec3> cubeColliderVertices = {
 Model& CubeModel() {
 
 	// Create textures
+	// TODO - make file loading more robust. Right now file paths are relative to the build directory / location of executable.
 	Texture* texture1 = new Texture("../src/wall_tex.jpg", "texture1", false);
 	Texture* texture2 = new Texture("../src/awesomeface.png", "texture2", true);
 	vector<Texture>* textures = new vector<Texture>{ *texture1, *texture2 };
@@ -79,6 +80,7 @@ Model& CubeModel() {
 	Mesh* mesh = new Mesh(cubeVertices, cubeIndices);
 
 	// Create shader
+	// TODO - make file loading more robust. Right now file paths are relative to the build directory / location of executable.
 	Shader* shader = new Shader("../src/vertShader.vs", "../src/fragShader.fs");
 	shader->use();
 
