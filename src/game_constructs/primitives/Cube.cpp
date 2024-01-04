@@ -72,8 +72,8 @@ Model& CubeModel() {
 
 	// Create textures
 	// TODO - make file loading more robust. Right now file paths are relative to the build directory / location of executable.
-	Texture* texture1 = new Texture("../src/wall_tex.jpg", "texture1", false);
-	Texture* texture2 = new Texture("../src/awesomeface.png", "texture2", true);
+	Texture* texture1 = new Texture("../src/dev_data/images/wall_tex.jpg", "texture1", false);
+	Texture* texture2 = new Texture("../src/dev_data/images/awesomeface.png", "texture2", true);
 	vector<Texture>* textures = new vector<Texture>{ *texture1, *texture2 };
 
 	// Create mesh
@@ -81,7 +81,7 @@ Model& CubeModel() {
 
 	// Create shader
 	// TODO - make file loading more robust. Right now file paths are relative to the build directory / location of executable.
-	Shader* shader = new Shader("../src/vertShader.vs", "../src/fragShader.fs");
+	Shader* shader = new Shader("../src/dev_data/shaders/vertShader.vs", "../src/dev_data/shaders/fragShader.fs");
 	shader->use();
 
 	// Create material

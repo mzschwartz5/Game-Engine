@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Define the source files
-file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.c")
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS "src/*.cpp" "src/*.c")
 
 # Add the executable
 add_executable(GameEngineExecutable ${SOURCES})
@@ -19,6 +19,22 @@ target_include_directories(GameEngineExecutable PRIVATE ${CMAKE_SOURCE_DIR}/exte
                                                         ${CMAKE_SOURCE_DIR}/includes
                                                         # Glad builds its include folder to the build directory
                                                         ${CMAKE_BINARY_DIR}/gladsources/glad/include/glad)
+
+# Include all subdirectories of src as potential locations for header files as well
+function(include_sub_directories_recursively target root_directory)
+    if(IS_DIRECTORY ${root_directory})
+        target_include_directories(${target} PRIVATE ${root_directory})
+    endif()
+
+    file(GLOB all_subdirectories RELATIVE ${root_directory} ${root_directory}/*)
+    foreach(subdirectory ${all_subdirectories})
+        if(IS_DIRECTORY ${root_directory}/${subdirectory})
+            include_sub_directories_recursively(${target} ${root_directory}/${subdirectory})
+        endif()
+    endforeach()
+endfunction()
+
+include_sub_directories_recursively(GameEngineExecutable ${CMAKE_SOURCE_DIR}/src)
 
 # Add subdirectory for GLFW
 add_subdirectory(${CMAKE_SOURCE_DIR}/external/glfw)
