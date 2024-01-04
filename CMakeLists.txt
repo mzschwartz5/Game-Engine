@@ -22,8 +22,4 @@ target_include_directories(GameEngineExecutable PRIVATE ${CMAKE_SOURCE_DIR}/exte
 add_subdirectory(${CMAKE_SOURCE_DIR}/external/glfw)
 
 # Link libraries
-target_link_libraries(GameEngineExecutable glfw 
-                                           ${OPENGL_LIBRARY} 
-                                           ${COCOA_LIBRARY} 
-                                           ${IOKIT_LIBRARY} 
-                                           ${COREVIDEO_LIBRARY})
+target_link_libraries(GameEngineExecutable glfw)
