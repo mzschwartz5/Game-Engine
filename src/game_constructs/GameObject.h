@@ -25,16 +25,19 @@ public:
 	mat3 rotation() const;
 	void translate(const vec3& translation);
 	void setPosition(const vec3& position);
+	void setParent(GameObject& parent);
+	bool hasParent();
 	Collider* collider();
 	void setCollider(Collider* const collider);
 	dvec3 pointToWorldSpace(const dvec3& point); // TODO - encapsulate this in a transform class along with transform itself
 
 private:
 	void Draw() override;
-	void DrawModel(const mat4& parentTransform = mat4(1.0), bool hasParentMoved = false);
+	void DrawModel();
 
 	// Game object data
 	const Model& m_model;
+	GameObject* m_parent;
 	vector<reference_wrapper<GameObject>> m_children;
 	mat4 transform{ mat4(1.0f) }; // aka Model-to-World matrix
 	bool hasMoved{ false };	      // does the transform need to be recalculated?

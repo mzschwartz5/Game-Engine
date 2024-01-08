@@ -18,21 +18,23 @@ GameObject::GameObject(const Model& model, const vec3& position) : GameObject(mo
 }
 
 void GameObject::Draw() {
-	DrawModel(); // has default param values in header file.
+	// If this object has a parent, it will be drawn by the parent.
+	if (hasParent()) return;
+	DrawModel();
 }
 
-void GameObject::DrawModel(const mat4& parentTransform, bool hasParentMoved) {
+void GameObject::DrawModel() {
 
 	// Dirty flag pattern to avoid unnecessary recalculations of transforms
-	if (hasParentMoved) {
-		transform = parentTransform * transform;
+	if (hasParent() && m_parent->hasMoved) {
+		transform = m_parent->transform * transform;
 		hasMoved = true;
 	}
 	
 	m_model.Draw(transform);
 
 	for (const auto& child : m_children) {
-		child.get().DrawModel(transform, hasMoved);
+		child.get().DrawModel();
 	}
 
 	// Reset flags
@@ -70,4 +72,13 @@ dvec3 GameObject::pointToWorldSpace(const dvec3& point)
 {
 	dvec4 transformedPoint = transform * dvec4(point, 1.0);
 	return dvec3(transformedPoint);
+}
+
+void GameObject::setParent(GameObject& parent) {
+	parent.m_children.push_back(*this);
+	this->m_parent = &parent;
+}
+
+bool GameObject::hasParent() {
+	return m_parent != nullptr;
 }
