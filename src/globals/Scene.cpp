@@ -5,11 +5,12 @@ using std::string;
 #include "camera.h"
 #include "graphics/Shader.h"
 #include "graphics/IDrawable.h"
+#include <GLFW/glfw3.h>
 
 const string VIEW_MATRIX = "view";
 const string PROJECTION_MATRIX = "projection";
 
-Scene::Scene(Camera& camera): m_camera(camera) {
+Scene::Scene(Camera& camera, GLFWwindow* window): m_camera(camera), m_window(window) {
 	// Guarantee single instance at runtime (without use of singleton pattern)
 	assert(!instantiated_);		
 	instantiated_ = true;
@@ -24,11 +25,11 @@ void Scene::RegisterShader(Shader& shader) {
 }
 
 void Scene::Draw() {
+	int screenWidth, screenHeight;
+	glfwGetFramebufferSize(m_window, &screenWidth, &screenHeight);
+	const mat4& projectionMatrix = m_camera.calcProjectionMatrix(screenWidth, screenHeight);
 	const mat4& viewMatrix = m_camera.calcViewMatrix();
-	const mat4& projectionMatrix = m_camera.calcProjectionMatrix();
 
-	//m_shaders[0].get().setMatrix(VIEW_MATRIX, viewMatrix);
-	//m_shaders[0].get().setMatrix(PROJECTION_MATRIX, projectionMatrix);
 	for (auto& shader : m_shaders) {
 		shader.get().setValue(VIEW_MATRIX, viewMatrix);
 		shader.get().setValue(PROJECTION_MATRIX, projectionMatrix);

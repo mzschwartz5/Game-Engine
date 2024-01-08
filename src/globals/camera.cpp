@@ -92,7 +92,7 @@ const mat4& Camera::calcViewMatrix() {
 	return viewMatrix; // const reference to member variable
 }
 
-const mat4& Camera::calcProjectionMatrix() {
-	projectionMatrix = glm::perspective(glm::radians(fov), Constants::SCR_WIDTH / Constants::SCR_HEIGHT, 0.1f, 100.0f); // TODO - no magic numbers for near and far clip planes
+const mat4& Camera::calcProjectionMatrix(const float width, const float height) {
+	projectionMatrix = glm::perspective(glm::radians(fov), width / height, 0.1f, 100.0f); // TODO - no magic numbers for near and far clip planes
 	return projectionMatrix;
 }

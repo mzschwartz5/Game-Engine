@@ -20,7 +20,7 @@ using Primitive::Cube;
 // Forward declarations
 GLFWwindow* initializeGLFW();
 void processKeyboardInput(GLFWwindow* window, Camera& camera);
-void processMouseInput(GLFWwindow* window, Camera* camera);
+void bindMouseInputsToWindow(GLFWwindow* window, Camera* camera);
 
 int main()
 {
@@ -32,10 +32,10 @@ int main()
 
 		// Create camera with position and front vectors, control it via mouse input.
 		Camera camera(vec3(0.0f, 0.0f, 3.0f), vec3(0.0f, 0.0f, -1.0f));
-		processMouseInput(window, &camera);
+		bindMouseInputsToWindow(window, &camera);
 
 		// Initialize scene
-		Scene scene{ camera };
+		Scene scene{ camera, window };
 
 		// Initialize Time
 		Timer timer;
@@ -106,9 +106,11 @@ GLFWwindow* initializeGLFW() {
 		std::exit(1);
 	}
 
-	glViewport(0, 0, Constants::SCR_WIDTH, Constants::SCR_HEIGHT);
+	glViewport(0, 0, Constants::SCR_WIDTH, Constants::SCR_HEIGHT);	
+	// Register callback on window resize
 	auto frameBufferReziseCallback = [](GLFWwindow* window, int width, int height) { glViewport(0, 0, width, height); };
-	glfwSetFramebufferSizeCallback(window, frameBufferReziseCallback); // register callback on window resize
+	glfwSetFramebufferSizeCallback(window, frameBufferReziseCallback); 
+	
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); // disable mouse for FPS camera system
 
 	// Enable depth testing
@@ -140,7 +142,7 @@ void processKeyboardInput(GLFWwindow* window, Camera& camera) {
 
 }
 
-void processMouseInput(GLFWwindow* window, Camera* camera) {
+void bindMouseInputsToWindow(GLFWwindow* window, Camera* camera) {
 	/*
 		NOTE: GLFW callbacks must be function pointers. This is annoying because the callbacks need access to camera. By passing in camera to the lambda's capture, the lambda
 		no longer decays to a function pointer. Instead, we have to use GLFW functions to store off and retrieve the camera pointer. (Which causes other annoyances and oddities..)

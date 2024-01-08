@@ -8,17 +8,19 @@ using std::vector;
 #include <functional>
 using std::reference_wrapper;
 #include "graphics/IDrawable.h"
+#include <GLFW/glfw3.h>
 
 class Camera;
 
 class Scene {
 public:	
-	Scene(Camera& camera);
+	Scene(Camera& camera, GLFWwindow* window);
 	static void RegisterDrawable(IDrawable& drawable);
 	static void RegisterShader(Shader& shader);
 	void Draw();
 private:
 	Camera& m_camera;
+	GLFWwindow* m_window;
 
 	// "Global" (restricted access) arrays of data in the scene, shared by all game objects in scene.
 	static vector<reference_wrapper<IDrawable>> m_drawables;

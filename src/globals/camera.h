@@ -1,6 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#include "constants.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -33,7 +34,7 @@ private:
 	float fov;
 	void updateCameraVectors();
 	const mat4& calcViewMatrix();
-	const mat4& calcProjectionMatrix();
+	const mat4& calcProjectionMatrix(const float width = Constants::SCR_WIDTH, const float height = Constants::SCR_HEIGHT);
 
 };
 
