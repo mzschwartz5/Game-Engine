@@ -1,10 +1,10 @@
 #include "Cube.h"
 using namespace Primitive;
-#include "Model.h"
-#include "material.h"
-#include "Shader.h"
-#include "mesh.h"
-#include "vertex.h"
+#include "graphics/Model.h"
+#include "graphics/material.h"
+#include "graphics/Shader.h"
+#include "graphics/mesh.h"
+#include "graphics/vertex.h"
 #include <glm/glm.hpp>
 using glm::vec3;
 using glm::dvec3;

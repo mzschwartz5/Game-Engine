@@ -1,10 +1,10 @@
 #ifndef CUBE_H
 #define CUBE_H
-#include "GameObject.h"
+#include "game_constructs/GameObject.h"
 #include <glm/glm.hpp>
 using glm::vec3;
 using glm::dvec3;
-#include "Collider.h"
+#include "physics/Collider.h"
 
 namespace Primitive {
 

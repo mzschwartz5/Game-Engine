@@ -2,6 +2,7 @@
     "files.associations": {
         "glad.h": "c",
         "ostream": "cpp",
+ 
         "__bit_reference": "cpp",
         "__bits": "cpp",
         "__config": "cpp",

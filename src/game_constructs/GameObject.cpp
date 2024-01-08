@@ -1,5 +1,5 @@
 #include "GameObject.h"
-#include "Scene.h"
+#include "globals/Scene.h"
 #include <iostream>
 #include <glm/glm.hpp>
 using glm::vec3;

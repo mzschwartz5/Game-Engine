@@ -6,7 +6,7 @@ using glm::mat4;
 using glm::mat3;
 #include <vector>
 using std::vector;
-#include "GameObject.h"
+#include "game_constructs/GameObject.h"
 
 class Collider {
 public:

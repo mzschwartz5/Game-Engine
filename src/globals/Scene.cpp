@@ -3,8 +3,8 @@
 #include<string>
 using std::string;
 #include "camera.h"
-#include "Shader.h"
-#include "IDrawable.h"
+#include "graphics/Shader.h"
+#include "graphics/IDrawable.h"
 
 const string VIEW_MATRIX = "view";
 const string PROJECTION_MATRIX = "projection";

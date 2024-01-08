@@ -1,12 +1,12 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
-#include "IDrawable.h"
+#include "graphics/IDrawable.h"
 #include <functional>
 using std::reference_wrapper;
 #include <vector>
 using std::vector;
-#include "Model.h"
-#include "Scene.h"
+#include "graphics/Model.h"
+#include "globals/Scene.h"
 #include <glm/glm.hpp>
 using glm::vec3;
 using glm::dvec3;

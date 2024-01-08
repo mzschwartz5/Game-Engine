@@ -2,12 +2,12 @@
 #define SCENE_H
 #include <vector>
 using std::vector;
-#include "mesh.h"
-#include "texture.h"
-#include "Shader.h"
+#include "graphics/mesh.h"
+#include "graphics/texture.h"
+#include "graphics/Shader.h"
 #include <functional>
 using std::reference_wrapper;
-#include "IDrawable.h"
+#include "graphics/IDrawable.h"
 
 class Camera;
 
