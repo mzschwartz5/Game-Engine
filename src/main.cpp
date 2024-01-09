@@ -21,10 +21,13 @@ using Primitive::Cube;
 GLFWwindow* initializeGLFW();
 void processKeyboardInput(GLFWwindow* window, Camera& camera);
 void bindMouseInputsToWindow(GLFWwindow* window, Camera* camera);
+void glfwErrorCallback(int error, const char* description);
 
 int main()
 {
-	try { // Top level error handling
+	// Top level error handling
+	try { 
+	    glfwSetErrorCallback(glfwErrorCallback);
 
 		// GLFW initialization and global settings
 		GLFWwindow* window = initializeGLFW();
@@ -84,11 +87,11 @@ int main()
 
 GLFWwindow* initializeGLFW() {
 	glfwInit();
-	// Conditional for mac os?
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
+	//glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_FALSE);
 
 	GLFWwindow* window = glfwCreateWindow(Constants::SCR_WIDTH, Constants::SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
 	if (window == NULL)
@@ -106,11 +109,16 @@ GLFWwindow* initializeGLFW() {
 		std::exit(1);
 	}
 
-	glViewport(0, 0, Constants::SCR_WIDTH, Constants::SCR_HEIGHT);	
+	// The reason we get the frame buffer here instead of using the width/height constants is because retina screens have a higher resolution than the window size.
+	// After creating the window with our constants, we'll take what GLFW says the screen size is as the source of truth.
+	int screenWidth, screenHeight;
+	glfwGetFramebufferSize(window, &screenWidth, &screenHeight);
+	glViewport(0, 0, screenWidth, screenHeight);	
+
 	// Register callback on window resize
 	auto frameBufferReziseCallback = [](GLFWwindow* window, int width, int height) { glViewport(0, 0, width, height); };
 	glfwSetFramebufferSizeCallback(window, frameBufferReziseCallback); 
-	
+
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); // disable mouse for FPS camera system
 
 	// Enable depth testing
@@ -183,4 +191,8 @@ void bindMouseInputsToWindow(GLFWwindow* window, Camera* camera) {
 
 	// Unbind GLFW user pointer
 	glfwSetWindowUserPointer(window, nullptr);
+}
+
+void glfwErrorCallback(int error, const char* description) {
+    std::cerr << "GLFW Error (" << error << "): " << description << std::endl;
 }

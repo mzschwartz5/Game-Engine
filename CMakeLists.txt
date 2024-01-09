@@ -27,7 +27,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/external/glfw)
 add_subdirectory(${CMAKE_SOURCE_DIR}/external/glad/cmake)
 
 # Function defined in glad cmake file
-glad_add_library(glad STATIC API gl:core=4.6)
+glad_add_library(glad STATIC API gl:core=4.1)
 
 # Add stb_image as a library
 file(GLOB STB_IMAGE_SOURCES "external/stb_image/*.cpp")
